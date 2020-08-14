@@ -1,38 +1,187 @@
-.App {
+@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900");
+
+body {
+  color: #797e83;
+  font-size: 16px;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5; 
+}
+
+h1, .headline {
+  color: #525559;
+  font-weight: 300;
+  font-size: 2.625em;
+  line-height: 1.09524;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #cfd7e2;
+}
+
+
+h2, .question-headline {
+  color: #d6415d;
+  letter-spacing: 1px;
+  font-weight: 500;
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.125em;
+}
+
+h4 {
+  margin-top: 1.375em;
+  margin-bottom: 2.57143em;
+  color: #d6d7d9;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 0.875em; 
+}
+
+a {
+  color: #656a6e;
+  text-decoration: none;
+  font-weight: 400; 
+}
+
+p {
+  margin: .8em 0;
+  font-weight: 300;
+  font-size: 1.125em;
+  line-height: 1.5;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.page-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+#quiz {
+  max-width: 60vw;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 0.4em;
+  text-transform: capitalize;
+  font-size: 1.2em;
+  display: block;
+  width: 100%;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-bottom: 20px;
+  transition: ease 0.5s;
+}
+
+
+.btn-primary {
+  border: 2px solid rgba(26,92,255, 1);
+  color: rgba(26,92,255, 1);
+  background-color: #FFF;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination-container button {
+  width: 30%;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.btn:hover {
+  background-color: rgba(26,92,255, 1);
+  color: #FFF;
+  transform: scale(1.05);
+  transition: transform 0.6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.score-container {
+  position: relative;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.score-btn {
+  padding: 20px 20px;
+  border-radius: 100px;
+  border: 0;
+  text-transform: capitalize;
+  font-size: 1.2em;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: rgba(26,92,255, 1);
+  transition: ease 0.5s;
+  position: absolute;
+  right: 1px;
+  color: #FFF;
 }
 
-.App-link {
-  color: #61dafb;
+.br-50 {
+  border-radius: 50px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn[disabled] {
+    cursor: default;
+    background: rgba(26,92,255, 1);
+    color: #FFF;
+}
+
+button.correct {
+    cursor: default;
+    background: rgb(23, 201, 100) !important;
+    border-color: rgb(23, 201, 100);
+    color: #FFF;
+}
+
+button.wrong {
+    cursor: default;
+    background: rgb(242, 19, 93) !important;
+    border-color: rgb(242, 19, 93);
+    color: #FFF;
+}
+
+.form-control {
+  padding: 10px 20px;
+  border-radius: 0.4em;
+  text-transform: capitalize;
+  font-size: 1.2em;
+  display: block;
+  width: 90%;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-bottom: 20px;
+  border: 2px solid rgba(26,92,255, 1);
+  transition: ease 0.5s;
+}
+
+.form-control:focus {
+  transform: translateY(3px);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.text-center {
+  text-align: center;
 }
