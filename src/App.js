@@ -108,6 +108,7 @@ function App() {
     if (currentQuestionIndex >= questions.length) {
       setQuizFinished(true);
     }
+    setCurrentQuestion(() => questions[qstIndex]);
   };
 
   const handleNextQuestion = () => {
