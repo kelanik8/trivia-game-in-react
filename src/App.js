@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import ReactHtmlParser from "react-html-parser";
 import Loader from "react-loader-spinner";
+import PointsContainer from "./components/PointsContainer";
+import AnswersGiven from "./components/AnswersGiven";
+import FormContainer from "./components/FormContainer";
+import PaginationContainer from "./components/PaginationContainer";
+import Leaderboard from "./components/Leaderboard";
+import QuestionContainer from "./components/QuestionContainer";
+import Footer from "./components/Footer";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import API from "./API";
 import "./App.css";
 
 function App() {
-  const [questionsResponse, setQuestionsResponse] = useState();
-
   const [questions, setQuestion] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -191,7 +195,7 @@ function App() {
       <div id="quiz" className="centered w-8">
         <h1 className="headline">Welcome to TrustLayer Trivia</h1>
         <div className="score-container">
-          <button className="score-btn">{points}</button>
+          <PointsContainer points={points} />
         </div>
         {isLoading ? (
           <Loader
@@ -205,138 +209,45 @@ function App() {
           <>
             {currentQuestion && points ? (
               <>
-                <p>
-                  Category: {currentQuestion.category} | Difficulty{" "}
-                  {currentQuestion.difficulty}
-                </p>
-                <h2 id="question" className="question-headline">
-                  {ReactHtmlParser(currentQuestion.question)}
-                </h2>
-                <br />
-
-                {currentQuestion.options.map((opt, i) => (
-                  <button
-                    key={i}
-                    disabled={currentQuestion.answered}
-                    className={`btn btn-primary br-50 ${
-                      currentQuestion.answered &&
-                      currentQuestion.seletedOption == opt.text &&
-                      opt.correct &&
-                      "correct"
-                    }
-                      ${
-                        currentQuestion.answered &&
-                        currentQuestion.seletedOption == opt.text &&
-                        !opt.correct &&
-                        "wrong"
-                      }`}
-                    onClick={() =>
-                      handleOptions(opt, currentQuestion.difficulty)
-                    }
-                  >
-                    {ReactHtmlParser(opt.text)}
-                  </button>
-                ))}
+                <QuestionContainer
+                  currentQuestion={currentQuestion}
+                  onOptions={handleOptions}
+                />
 
                 {questions.length && (
-                  <div className="pagination-container">
-                    {currentQuestion.index !== 0 && (
-                      <button
-                        className="btn btn-primary"
-                        onClick={handlePrevQuestion}
-                      >
-                        Prev
-                      </button>
-                    )}
-                    <button
-                      style={{ marginLeft: "auto" }}
-                      className="btn btn-primary"
-                      onClick={handleNextQuestion}
-                    >
-                      Next
-                    </button>
-                  </div>
+                  <PaginationContainer
+                    currentQuestionIndex={currentQuestion.index}
+                    onPrevQuestion={handlePrevQuestion}
+                    onNextQuestion={handleNextQuestion}
+                  />
                 )}
               </>
             ) : (
               <>
                 <h2>Game Over</h2>
                 <div className="score-container">
-                  <button className="score-btn" style={{ top: "30px" }}>
-                    Answered: {formatAnswersGiven()}
-                  </button>
+                  <AnswersGiven answers={formatAnswersGiven()} />
                 </div>
                 <br />
                 <br />
                 <br />
                 {!form.isLoaded ? (
-                  <div className="form-container">
-                    <form onSubmit={handleSubmit}>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="username"
-                          onChange={handleChange}
-                          placeholder="Username"
-                          required
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="password"
-                          className="form-control"
-                          name="password"
-                          onChange={handleChange}
-                          placeholder="Password"
-                          required
-                        />
-                      </div>
-                      <div className="form-group">
-                        <button className="btn btn-primary" type="submit">
-                          Submit
-                        </button>
-                      </div>
-                    </form>
-                  </div>
+                  <FormContainer
+                    onSubmit={handleSubmit}
+                    onChange={handleChange}
+                  />
                 ) : (
-                  <div>
-                    <h2>Leaderboard</h2>
-                    <br />
-
-                    <table>
-                      <tr>
-                        <th>Username</th>
-                        <th>Date</th>
-                        <th>Answers</th>
-                      </tr>
-                      {leaderboards.map((user) => (
-                        <tr>
-                          <td>{user.username}</td>
-                          <td>{new Date(user.date).toLocaleDateString()}</td>
-                          <td>{user.answers}</td>
-                        </tr>
-                      ))}
-                    </table>
-
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => (window.location = "/")}
-                    >
-                      Play Again
-                    </button>
-                  </div>
+                  <Leaderboard leaderboards={leaderboards} />
                 )}
               </>
             )}
           </>
         )}
 
-        <footer>
-          <p id="progress">
-            Question {currentQuestionIndex + 1} of {questions.length}
-          </p>
-        </footer>
+        <Footer
+          currentQuestionIndex={currentQuestionIndex}
+          questionsLength={questions.length}
+        />
       </div>
     </div>
   );
